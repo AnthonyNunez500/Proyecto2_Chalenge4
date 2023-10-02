@@ -6,11 +6,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieService {
-    @GET("3/search/movie?api_key={apiKey}")
+    @GET("3/search/movie")
     //https://api.themoviedb.org/3/search/movie?api_key=ae6473400bedc2a7b434d4500512ca1f&query=blue+beetle
     //main url : https://api.themoviedb.org
     //get url: 3/movie/popular
     //apikey: ?api_key=ae6473400bedc2a7b434d4500512ca1f
     //buscar por titulo: &query=blue+beetle
-    fun searchMovieByTitle(@Query("query") query: String, @Path("apiKey") apiKey: String): Call<List<Movie>>
+    fun searchMovieByTitle(@Query("query") query: String, @Query("api_key") apiKey: String): Call<List<Movie>>
 }

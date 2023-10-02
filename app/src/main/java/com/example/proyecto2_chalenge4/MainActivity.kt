@@ -39,8 +39,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getTitleString(): String {
+        val title = etNombre.text.toString()
+        title.replace(' ', '+')
+        return title
+    }
     private fun searchByTitle() {
-        val title =  etNombre.text.toString()
+        val title =  getTitleString()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(mainURL)
             .addConverterFactory(GsonConverterFactory.create())
