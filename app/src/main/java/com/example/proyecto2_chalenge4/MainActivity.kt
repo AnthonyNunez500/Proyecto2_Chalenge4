@@ -17,16 +17,24 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    val btNombre = findViewById<Button>(R.id.btNombre)
-    val etNombre = findViewById<TextInputEditText>(R.id.etNombre)
-    val rvMovie = findViewById<RecyclerView>(R.id.rvPelis)
-    val mainURL = "https://api.themoviedb.org/"
     lateinit var movies: List<Movie>
     lateinit var movieAdapter: MovieAdapter
+
+    lateinit var btNombre: Button
+    lateinit var etNombre: TextInputEditText
+    lateinit var rvMovie: RecyclerView
+    val mainURL = "https://api.themoviedb.org/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        btNombre.setOnClickListener(){
+
+        // Inicializar las vistas
+        btNombre = findViewById(R.id.btNombre)
+        etNombre = findViewById(R.id.etNombre)
+        rvMovie = findViewById(R.id.rvPelis)
+
+        btNombre.setOnClickListener {
             searchByTitle()
         }
     }
@@ -38,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(MovieService::class.java)
-        val request = service.searchMovieByTitle(title)
+        val request = service.searchMovieByTitle(title, "ae6473400bedc2a7b434d4500512ca1f")
 
         request.enqueue(object : Callback<List<Movie>>{
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
